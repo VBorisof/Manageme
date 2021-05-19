@@ -6,7 +6,7 @@ namespace Manageme.Data
     public class AppDbContext : DbContext
     {
         public DbSet<User> Users { get; set; }
-        public DbSet<Reminder> Reminders { get; set; }
+        public DbSet<TaskItem> TaskItems { get; set; }
         public DbSet<Category> Categories { get; set; }
 
         public AppDbContext(DbContextOptions options) : base(options)
@@ -27,11 +27,11 @@ namespace Manageme.Data
                     .HasColumnType("timestamp")
                     .HasDefaultValueSql("now() at time zone 'utc'");
 
-                e.HasMany(x => x.Reminders);
+                e.HasMany(x => x.TaskItems);
                 e.HasMany(x => x.Categories);
             });
 
-            builder.Entity<Reminder>(e => 
+            builder.Entity<TaskItem>(e => 
             {
                 e.HasKey(x => x.Id);
                 e.Property(x => x.Id).ValueGeneratedOnAdd();
@@ -43,7 +43,7 @@ namespace Manageme.Data
                     .HasDefaultValueSql("now() at time zone 'utc'");
 
                 e.HasOne(x => x.User)
-                    .WithMany(x => x.Reminders)
+                    .WithMany(x => x.TaskItems)
                     .HasForeignKey(x => x.UserId);
 
                 e.HasOne(x => x.Category)

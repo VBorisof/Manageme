@@ -2,8 +2,10 @@ using System;
 
 namespace Manageme.Data.Models
 {
-    public class Reminder : ModelBase
+    public class TaskItem : ModelBase
     {
+        public bool IsDone { get; set; }
+
         public string Content { get; set; }
         public DateTime? Time { get; set; }
 
@@ -13,7 +15,7 @@ namespace Manageme.Data.Models
         public long CategoryId { get; set; }
         public Category Category { get; set; }
 
-        public Reminder(
+        public TaskItem(
             long userId,
             long categoryId,
             string content,
@@ -25,7 +27,7 @@ namespace Manageme.Data.Models
             Content = content;
             Time = time;
         }
-        public Reminder() { }
+        public TaskItem() { }
     }
 }
 

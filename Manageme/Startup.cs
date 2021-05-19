@@ -36,7 +36,9 @@ namespace Manageme
 
             services.AddScoped<RegistrationService>();
             services.AddScoped<LoginService>();
+            services.AddScoped<TaskItemService>();
             services.AddScoped<ReminderService>();
+            services.AddScoped<TodoService>();
             services.AddScoped<CategoryService>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();

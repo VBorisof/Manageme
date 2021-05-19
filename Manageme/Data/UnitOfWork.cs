@@ -12,8 +12,8 @@ namespace Manageme.Data
         private Repository<User> _users;
         public IRepository<User> Users => _users ?? (_users = new Repository<User>(_context));
         
-        private Repository<Reminder> _reminders;
-        public IRepository<Reminder> Reminders => _reminders ?? (_reminders = new Repository<Reminder>(_context));
+        private Repository<TaskItem> _taskItems;
+        public IRepository<TaskItem> TaskItems => _taskItems ?? (_taskItems = new Repository<TaskItem>(_context));
        
         private Repository<Category> _categories;
         public IRepository<Category> Categories => _categories ?? (_categories = new Repository<Category>(_context));

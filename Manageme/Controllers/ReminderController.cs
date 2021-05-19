@@ -15,11 +15,11 @@ namespace Manageme.Controllers
     [ApiController]
     public class ReminderController : ControllerBase
     {
-        private readonly ReminderService _reminderService;
+        private readonly TaskItemService _taskItemService;
 
-        public ReminderController(ReminderService reminderService)
+        public ReminderController(TaskItemService taskItemService)
         {
-            _reminderService = reminderService;
+            _taskItemService = taskItemService;
         }
 
 
@@ -28,21 +28,10 @@ namespace Manageme.Controllers
         [SwaggerResponse((int) HttpStatusCode.OK, "Okay", typeof(ReminderViewModel))]
         [SwaggerResponse((int) HttpStatusCode.NotFound, "User Not Found", typeof(ErrorResult))]
         [SwaggerResponse((int) HttpStatusCode.BadRequest, "Bad Request", typeof(ErrorResult))]
-        public async Task<IActionResult> Post([FromBody] ReminderForm form)
+        public async Task<IActionResult> AddReminderAsync([FromBody] ReminderForm form)
         {
             return this.FromServiceResult(
-                await _reminderService.AddTaskItemAsync(this.GetRequestUserId(), form)
-            );
-        }
-        
-        [Authorize]
-        [HttpGet("todo/{categoryId}")]
-        [SwaggerResponse((int) HttpStatusCode.OK, "Okay", typeof(ReminderViewModel))]
-        [SwaggerResponse((int) HttpStatusCode.NotFound, "TODOs Not Found", typeof(ErrorResult))]
-        public IActionResult GetTodos(long categoryId)
-        {
-            return this.FromServiceResult(
-                _reminderService.GetTodos(this.GetRequestUserId(), categoryId)
+                await _taskItemService.AddReminderAsync(this.GetRequestUserId(), form)
             );
         }
     }

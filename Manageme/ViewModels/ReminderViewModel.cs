@@ -10,7 +10,7 @@ namespace Manageme.ViewModels
         public string Category { get; set; }
         public DateTime? Time { get; set; }
 
-        public ReminderViewModel(Reminder reminder)
+        public ReminderViewModel(TaskItem reminder)
         {
             Id = reminder.Id;
             Content = reminder.Content;

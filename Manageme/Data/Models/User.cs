@@ -8,7 +8,7 @@ namespace Manageme.Data.Models
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
 
-        public ICollection<Reminder> Reminders { get; set; }
+        public ICollection<TaskItem> TaskItems { get; set; }
         public ICollection<Category> Categories { get; set; }
 
         public User(string name, byte[] passwordHash, byte[] passwordSalt)
@@ -17,9 +17,10 @@ namespace Manageme.Data.Models
             PasswordHash = passwordHash;
             PasswordSalt = passwordSalt;
 
-            Reminders = new HashSet<Reminder>();
+            TaskItems = new HashSet<TaskItem>();
             Categories = new HashSet<Category>();
         }
         public User() { }
     }   
 }
+
