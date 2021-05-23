@@ -7,15 +7,16 @@ namespace Manageme.ViewModels
     {
         public long Id { get; set; }
         public string Content { get; set; }
-        public string Category { get; set; }
+        public long CategoryId { get; set; }
         public DateTime? Time { get; set; }
 
-        public ReminderViewModel(TaskItem reminder)
+        public ReminderViewModel(TaskItem taskItem)
         {
-            Id = reminder.Id;
-            Content = reminder.Content;
-            Category = reminder.Category.Name;
-            Time = reminder.Time;
+            Id = taskItem.Id;
+            Content = taskItem.Content;
+            CategoryId = taskItem.CategoryId;
+            Time = taskItem.Time;
         }
     }
 }
+

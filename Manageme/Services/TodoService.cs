@@ -22,11 +22,11 @@ namespace Manageme.Services
         {
             var todos = _unitOfWork.TaskItems.GetAsQueryable()
                 .Include(r => r.User)
-                .Include(r => r.Category)
                 .Where(r => 
                         r.UserId == userId 
                         && r.CategoryId == categoryId
-                        && r.Time == null); // TODOs have `null` time.
+                        && r.Time == null) // TODOs have `null` time.
+                .OrderBy(r => r.CreatedAt);
 
             var result = 
                 todos.Select(r => new TodoViewModel(r)).ToList();

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 using Manageme.Extensions;
@@ -32,6 +33,18 @@ namespace Manageme.Controllers
         {
             return this.FromServiceResult(
                 await _taskItemService.AddReminderAsync(this.GetRequestUserId(), form)
+            );
+        }
+        
+        [Authorize]
+        [HttpGet]
+        [SwaggerResponse((int) HttpStatusCode.OK, "Okay", typeof(List<ReminderViewModel>))]
+        [SwaggerResponse((int) HttpStatusCode.NotFound, "User Not Found", typeof(ErrorResult))]
+        [SwaggerResponse((int) HttpStatusCode.BadRequest, "Bad Request", typeof(ErrorResult))]
+        public async Task<IActionResult> GetRemindersAsync()
+        {
+            return this.FromServiceResult(
+                await _taskItemService.GetRemindersAsync(this.GetRequestUserId())
             );
         }
     }

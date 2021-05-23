@@ -1,10 +1,12 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Manageme.Data;
 using Manageme.Data.Models;
 using Manageme.Forms;
 using Manageme.Services.Shared;
 using Manageme.ViewModels;
-using Microsoft.EntityFrameworkCore;
 
 namespace Manageme.Services
 {
@@ -46,13 +48,6 @@ namespace Manageme.Services
 
             await _unitOfWork.SaveAsync();
 
-            // Fetch the newly added reminder from the DB to get it with category.
-            // TODO: There's probably a better way of doing this...
-            todo = 
-                await _unitOfWork.TaskItems.GetAsQueryable()
-                    .Include(r => r.Category)
-                    .SingleOrDefaultAsync(r => r.Id == todo.Id);
-
             return ServiceResult.Ok(new TodoViewModel(todo));
         }
 
@@ -79,14 +74,40 @@ namespace Manageme.Services
 
             await _unitOfWork.SaveAsync();
 
-            // Fetch the newly added reminder from the DB to get it with category.
-            // TODO: There's probably a better way of doing this...
-            reminder = 
-                await _unitOfWork.TaskItems.GetAsQueryable()
-                    .Include(r => r.Category)
-                    .SingleOrDefaultAsync(r => r.Id == reminder.Id);
-
             return ServiceResult.Ok(new ReminderViewModel(reminder));
+        }
+
+        public async Task<ServiceResult<List<ReminderViewModel>>>
+            GetRemindersAsync (long userId)
+        {
+            /// MOCK
+            var reminders = new List<TaskItem>
+            {
+                new TaskItem
+                {
+                    Id = 0,
+                    Content = "Do this",
+                    Time = DateTime.UtcNow,
+                    CategoryId = 1,
+                },
+                new TaskItem
+                {
+                    Id = 1,
+                    Content = "Do that",
+                    Time = DateTime.UtcNow,
+                    CategoryId = 1,
+                },
+                new TaskItem
+                {
+                    Id = 2,
+                    Content = "And this",
+                    Time = DateTime.UtcNow,
+                    CategoryId = 1,
+                },
+            };
+
+            var result = reminders.Select(r => new ReminderViewModel(r)).ToList();
+            return ServiceResult.Ok(result);
         }
     }
 }

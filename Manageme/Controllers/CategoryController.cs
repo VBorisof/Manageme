@@ -1,9 +1,11 @@
+using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 using Manageme.Extensions;
 using Manageme.Forms;
 using Manageme.Services;
 using Manageme.Services.Shared;
+using Manageme.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -37,7 +39,7 @@ namespace Manageme.Controllers
 
         [Authorize]
         [HttpGet]
-        [SwaggerResponse((int) HttpStatusCode.OK, "Okay", typeof(string))]
+        [SwaggerResponse((int) HttpStatusCode.OK, "Okay", typeof(List<CategoryViewModel>))]
         [SwaggerResponse((int) HttpStatusCode.NotFound, "User Not Found", typeof(ErrorResult))]
         public async Task<IActionResult> GetCategories()
         {
