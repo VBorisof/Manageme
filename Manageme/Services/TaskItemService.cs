@@ -76,39 +76,6 @@ namespace Manageme.Services
 
             return ServiceResult.Ok(new ReminderViewModel(reminder));
         }
-
-        public async Task<ServiceResult<List<ReminderViewModel>>>
-            GetRemindersAsync (long userId)
-        {
-            /// MOCK
-            var reminders = new List<TaskItem>
-            {
-                new TaskItem
-                {
-                    Id = 0,
-                    Content = "Do this",
-                    Time = DateTime.UtcNow,
-                    CategoryId = 1,
-                },
-                new TaskItem
-                {
-                    Id = 1,
-                    Content = "Do that",
-                    Time = DateTime.UtcNow,
-                    CategoryId = 1,
-                },
-                new TaskItem
-                {
-                    Id = 2,
-                    Content = "And this",
-                    Time = DateTime.UtcNow,
-                    CategoryId = 1,
-                },
-            };
-
-            var result = reminders.Select(r => new ReminderViewModel(r)).ToList();
-            return ServiceResult.Ok(result);
-        }
     }
 }
 

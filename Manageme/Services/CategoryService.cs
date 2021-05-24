@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -41,7 +42,12 @@ namespace Manageme.Services
                 );
             }
 
-            if (user.Categories.Any(c => c.Name == form.Name.Trim()))
+            if (user.Categories.Any(c =>
+                c.Name.Equals(
+                    form.Name.Trim(),
+                    StringComparison.InvariantCultureIgnoreCase
+                )
+            ))
             {
                 return ServiceResult.Conflict<CategoryViewModel>(
                     "This category is already defined."
